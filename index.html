@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TaskFlow XP — Personal Quest Manager</title>
+<style>
+:root{--bg:#f5f7fb;--panel:#fff;--text:#182230;--muted:#718096;--line:#e7ebf2;--primary:#6257e8;--primary2:#8178f3;--green:#15966a;--amber:#c88719;--red:#d94b58;--shadow:0 8px 28px rgba(28,39,70,.06)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}.app{display:flex;min-height:100vh}.sidebar{width:240px;background:#171a2b;color:#fff;padding:25px 16px;display:flex;flex-direction:column;gap:28px}.brand{display:flex;align-items:center;gap:10px;padding:0 9px;font-size:19px;font-weight:800;letter-spacing:-.5px}.brand-mark{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#8b82ff,#5d52dc);display:grid;place-items:center;font-weight:900}.nav-label{color:#858aa5;font-size:10px;text-transform:uppercase;letter-spacing:1.4px;padding:0 12px;margin-bottom:8px}.nav{display:grid;gap:5px}.nav button{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:9px;color:#b8bdd0;background:transparent;text-align:left;width:100%;font-weight:600}.nav button.active,.nav button:hover{background:#292d45;color:#fff}.nav .count{margin-left:auto;font-size:11px;background:#353a56;padding:2px 7px;border-radius:20px}.side-bottom{margin-top:auto;color:#8e94ac;font-size:12px;padding:0 10px}.main{flex:1;min-width:0}.topbar{height:76px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 34px}.crumb{color:var(--muted)}.avatar{width:35px;height:35px;border-radius:50%;display:grid;place-items:center;background:#eceaff;color:var(--primary);font-weight:800}.top-actions{display:flex;align-items:center;gap:13px}.content{max-width:1280px;margin:auto;padding:30px 34px 50px}.page-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:25px}.eyebrow{color:var(--primary);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.3px}.page-head h1{font-size:27px;letter-spacing:-.8px;margin:4px 0}.sub{color:var(--muted);margin:0}.btn{padding:10px 15px;border-radius:9px;font-weight:700;display:inline-flex;align-items:center;gap:8px}.btn-primary{background:var(--primary);color:white;box-shadow:0 5px 12px #6257e833}.btn-primary:hover{background:#5146d1}.btn-light{background:#f1f2f8;color:#495168}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:23px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:18px;box-shadow:var(--shadow)}.stat-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;font-weight:650}.stat-icon{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:#f0efff;color:var(--primary);font-size:16px}.stat strong{display:block;font-size:27px;letter-spacing:-1px;margin-top:10px}.stat small{color:var(--muted)}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:22px 0 14px}.tabs{display:flex;gap:5px;flex-wrap:wrap}.tab{padding:8px 12px;border-radius:8px;background:transparent;color:var(--muted);font-weight:650}.tab.active{background:#eceaff;color:var(--primary)}.tools{display:flex;gap:8px}.search{position:relative}.search input{width:210px;padding:9px 12px 9px 34px;border:1px solid var(--line);border-radius:9px;background:#fff;outline:none}.search span{position:absolute;left:11px;top:7px;color:#9aa2b2}.select{border:1px solid var(--line);border-radius:9px;background:#fff;padding:9px;color:#596174;outline:none}.task-list{display:grid;gap:10px}.task{background:#fff;border:1px solid var(--line);border-radius:12px;padding:15px 17px;display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:12px;align-items:start;box-shadow:var(--shadow)}.check{width:19px;height:19px;border:1.7px solid #c9ced9;border-radius:6px;margin-top:3px;display:grid;place-items:center;color:#fff;background:#fff}.check.done{background:var(--green);border-color:var(--green)}.task-title{font-weight:750;font-size:14px;overflow-wrap:anywhere}.task.completed .task-title{text-decoration:line-through;color:#9aa2b2}.task-desc{color:var(--muted);font-size:12px;margin-top:3px;white-space:pre-wrap;overflow-wrap:anywhere}.meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;align-items:center}.pill{font-size:10px;font-weight:750;padding:3px 8px;border-radius:20px;background:#f1f3f7;color:#687287}.p-high{background:#fff0f0;color:#cb4552}.p-medium{background:#fff6e8;color:#b77a18}.p-low{background:#eaf8f2;color:#16845f}.due{font-size:11px;color:#7d8798}.due.late{color:var(--red);font-weight:750}.task-actions{display:flex;gap:4px}.icon-btn{background:transparent;color:#98a0af;padding:5px;border-radius:6px;font-size:16px}.icon-btn:hover{background:#f1f2f8;color:#30394c}.empty{background:#fff;border:1px dashed #d7dce7;border-radius:13px;text-align:center;padding:55px 20px;color:var(--muted)}.empty .emoji{font-size:32px}.empty h3{color:var(--text);margin:8px 0 3px}.progress-wrap{background:#fff;border:1px solid var(--line);padding:18px;border-radius:13px;margin-top:20px}.progress-head{display:flex;justify-content:space-between;margin-bottom:10px;font-weight:700}.progress{height:8px;background:#eff0f5;border-radius:20px;overflow:hidden}.progress>div{height:100%;background:linear-gradient(90deg,var(--primary),#9c93ff);border-radius:20px}.modal-backdrop{position:fixed;inset:0;background:#11182788;display:none;align-items:center;justify-content:center;padding:18px;z-index:5}.modal-backdrop.show{display:flex}.modal{background:#fff;width:min(540px,100%);border-radius:16px;padding:23px;box-shadow:0 20px 70px #0003;max-height:92vh;overflow:auto}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.modal h2{margin:0;font-size:20px}.close{background:#f1f2f8;border-radius:8px;padding:6px 10px;color:#687287}.field{display:grid;gap:6px;margin-bottom:13px}.field label{font-size:12px;font-weight:750;color:#596174}.field input,.field select,.field textarea{width:100%;border:1px solid #dfe3ec;border-radius:8px;padding:10px 11px;outline:none;background:#fff}.field textarea{min-height:82px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--primary);box-shadow:0 0 0 3px #6257e81a}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.modal-foot{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}.day{background:#fff;border:1px solid var(--line);border-radius:9px;min-height:95px;padding:8px;font-size:11px}.day .num{font-weight:800}.day.today{border-color:var(--primary);background:#f7f6ff}.day-task{display:block;background:#eceaff;color:#5146d1;border-radius:4px;padding:3px 4px;margin-top:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.muted{color:var(--muted)}.toast{position:fixed;bottom:22px;right:22px;background:#20243a;color:#fff;padding:11px 16px;border-radius:9px;box-shadow:var(--shadow);opacity:0;transform:translateY(8px);transition:.2s;pointer-events:none;z-index:10}.toast.show{opacity:1;transform:translateY(0)}.mobile-menu{display:none}
+@media(max-width:850px){.sidebar{width:205px}.content{padding:25px 20px}.topbar{padding:0 20px}.stats{grid-template-columns:repeat(2,1fr)}.toolbar{align-items:flex-start;flex-direction:column}.tools{width:100%}.search{flex:1}.search input{width:100%}}
+@media(max-width:600px){.app{display:block}.sidebar{width:100%;height:auto;padding:12px 14px;display:block}.brand{padding:0 4px}.sidebar .nav-label,.side-bottom{display:none}.nav{display:flex;overflow:auto;margin-top:12px}.nav button{white-space:nowrap;width:auto;padding:8px 10px;font-size:12px}.nav .count{display:none}.topbar{height:55px;padding:0 16px}.content{padding:22px 14px 40px}.page-head h1{font-size:23px}.stats{gap:9px}.stat{padding:13px}.stat strong{font-size:23px}.stat-top{font-size:11px}.stat-icon{width:27px;height:27px}.task{padding:13px 11px;grid-template-columns:20px minmax(0,1fr) auto;gap:8px}.task-actions{flex-direction:column}.tools{flex-wrap:wrap}.search{min-width:100%}.select{flex:1}.form-grid{grid-template-columns:1fr}.day{min-height:75px;padding:5px;font-size:10px}.day-task{font-size:9px}.calendar-grid{gap:4px}}
+
+/* GAMING / NEON HUD THEME */
+:root{--bg:#090d18;--panel:#111a2b;--text:#edf5ff;--muted:#8b9bb5;--line:#26364d;--primary:#7c5cff;--primary2:#9c86ff;--green:#36e0a1;--amber:#ffc857;--red:#ff647c;--shadow:0 10px 32px rgba(0,0,0,.22)}
+body{background:radial-gradient(ellipse at 80% -10%,#1a2450 0,transparent 36%),linear-gradient(135deg,#080c16,#0d1423 65%,#10172a);color:var(--text)}
+.sidebar{background:linear-gradient(180deg,#10182a,#0b1120);border-right:1px solid #253653;box-shadow:8px 0 30px #0002}
+.brand{letter-spacing:.2px}.brand-mark{background:linear-gradient(135deg,#36e0d0,#7c5cff);color:#08101c;box-shadow:0 0 18px #5d6bff66}
+.nav-label{color:#667c9c}.nav button{color:#9bacc5}.nav button.active,.nav button:hover{background:linear-gradient(90deg,#30275d,#1b2941);color:#fff;box-shadow:inset 3px 0 #54e6d2}.nav .count{background:#35456b;color:#b8f9f1}
+.player-card{margin-top:auto;border:1px solid #34466a;background:linear-gradient(145deg,#1c2945,#121c31);border-radius:13px;padding:13px;box-shadow:0 0 24px #6257e81a}.player-kicker{font-size:9px;letter-spacing:1.4px;color:#6debdc;font-weight:900;margin-bottom:12px}.player-row{display:flex;align-items:center;gap:9px}.player-avatar{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#57e6d5,#8064ff);color:#07111d;display:grid;place-items:center;font-weight:900}.player-row b{display:block;font-size:12px}.player-row small{display:block;color:#91a4c3;font-size:9px;letter-spacing:.8px;margin-top:2px}.xp-line{display:flex;justify-content:space-between;color:#8ea2c1;font-size:9px;font-weight:800;margin:14px 0 6px}.xp-line b{color:#8cf4df}.xp-track{height:6px;background:#293a58;border-radius:20px;overflow:hidden}.xp-track i{display:block;height:100%;width:0;background:linear-gradient(90deg,#5b72ff,#51ebd1);box-shadow:0 0 12px #51ebd1;transition:width .3s}.xp-foot{font-size:9px;color:#7589a8;margin-top:7px}.side-bottom{color:#647895;font-size:9px;letter-spacing:.7px;line-height:1.8;margin-top:0}
+.topbar{background:#101a2b;border-color:#26364d}.crumb{color:#91a2bc}.avatar{background:linear-gradient(135deg,#55e7d5,#8064ff);color:#07111d;box-shadow:0 0 15px #55e7d533}.eyebrow{color:#67e8d7}.page-head h1{color:#f4f7ff;text-shadow:0 0 22px #7c5cff35}.sub{color:#91a2bc}
+.btn-primary{background:linear-gradient(110deg,#7258ff,#4b9dfb);box-shadow:0 0 20px #7258ff44;color:#fff}.btn-primary:hover{background:linear-gradient(110deg,#856fff,#61adff)}.btn-light{background:#1d2a40;color:#b9c8df;border:1px solid #344660}
+.stat,.task,.progress-wrap,.day,.empty{background:linear-gradient(145deg,#131f32,#101a2a);border-color:#2a3a54;box-shadow:0 8px 24px #0002}.stat{position:relative;overflow:hidden}.stat:after{content:"";position:absolute;right:-22px;bottom:-42px;width:95px;height:95px;border:1px solid #7c5cff2b;border-radius:50%;box-shadow:0 0 0 12px #7c5cff09,0 0 0 25px #7c5cff06}.stat-top{color:#9aacc7}.stat-icon{background:#263253;color:#8cdbff}.stat strong{color:#f4f7ff}.stat small,.muted{color:#8193ae}
+.tab{color:#8fa1bc}.tab.active{background:#30285d;color:#bfb2ff}.search input,.select{background:#101b2d;border-color:#30415e;color:#eaf2ff}.search input::placeholder{color:#7184a1}.search span{color:#8ea3c4}
+.task{background:linear-gradient(110deg,#142137,#101a2a)}.task:hover{border-color:#5664a0;box-shadow:0 0 20px #6655ff18;transform:translateY(-1px)}.task{transition:.18s}.task-title{color:#edf5ff}.task-desc{color:#8fa2bf}.check{background:#0d1728;border-color:#50617c}.check.done{background:#19b987;border-color:#19b987;box-shadow:0 0 12px #19b98755}.task.completed .task-title{color:#8291a8}.pill{background:#24344d;color:#a8bad4}.p-high{background:#482638;color:#ff9aaa}.p-medium{background:#493b25;color:#ffd27c}.p-low{background:#173d3a;color:#73e6c1}.due{color:#8295b2}.due.late{color:#ff778c}.icon-btn{color:#8194b1}.icon-btn:hover{background:#293653;color:#fff}.progress-head{color:#dce8fa}.progress{background:#263650}.progress>div{background:linear-gradient(90deg,#765cff,#4ee5d3);box-shadow:0 0 14px #5cdbdb66}.day.today{background:#1b2850;border-color:#8a72ff}.day-task{background:#30315d;color:#c4bcff}.modal{background:#121e31;border:1px solid #354766;color:#edf5ff}.modal h2{color:#fff}.close{background:#263550;color:#c4d3e9}.field label{color:#a8bad4}.field input,.field select,.field textarea{background:#0d1728;border-color:#354762;color:#eef5ff}.field input::placeholder,.field textarea::placeholder{color:#6e829f}.field input:focus,.field textarea:focus,.field select:focus{border-color:#8c75ff;box-shadow:0 0 0 3px #8064ff25}.modal-backdrop{background:#020611c9}.empty{color:#8fa2bf}.empty h3{color:#edf5ff}.toast{background:#263858;border:1px solid #506a96;color:#fff}
+@media(max-width:600px){.player-card{display:none}.sidebar{border-bottom:1px solid #263653}.topbar{background:#101a2b}.nav button.active,.nav button:hover{box-shadow:inset 0 -2px #54e6d2}}
+
+
+body{background:var(--bg);color:var(--text)}
+.sidebar{background:#03050a;border-right:1px solid var(--line)}
+.topbar{background:var(--panel);border-bottom:1px solid var(--outline2)}
+.stat,.task,.progress-wrap,.day,.modal{background:var(--panel);border-color:var(--line)}
+.task,.stat,.progress-wrap{box-shadow:var(--shadow)}
+.task{border-left:2px solid var(--outline2)}
+.stat{border-top:2px solid var(--primary)}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 0 16px color-mix(in srgb,var(--primary) 32%,transparent)}
+.btn-primary:hover{filter:brightness(1.12)}
+.btn-light,.close{background:var(--soft);color:var(--text);border:1px solid var(--line)}
+.search input,.select,.field input,.field select,.field textarea{background:var(--soft);color:var(--text);border-color:var(--outline2)}
+.tab.active{background:var(--soft);color:var(--primary);outline:1px solid var(--primary)}
+.pill{background:var(--soft);color:var(--muted)}
+.empty{background:var(--panel);border-color:var(--outline2)}
+.progress{background:var(--soft)}
+.progress>div{background:linear-gradient(90deg,var(--primary),var(--primary2))}
+.day.today{border-color:var(--primary);box-shadow:inset 0 0 0 1px var(--primary)}
+.day-task{background:var(--soft);color:var(--primary2)}
+.avatar{background:var(--soft);color:var(--primary);border:1px solid var(--outline2)}
+.theme-select{max-width:190px;font-size:12px}
+@media(max-width:600px){.theme-select{max-width:145px;padding:7px 5px;font-size:10px}.top-actions{gap:7px}}
+
+
+/* THEME PALETTES — explicit selectors for reliable switching */
+:root{--bg:#030812;--panel:#071426;--text:#e6f2ff;--muted:#829bb8;--line:#1765b5;--primary:#168cff;--primary2:#55c8ff;--green:#35d6a0;--amber:#ffd166;--red:#ff536b;--outline2:#36a9ff;--soft:#0b2038;--shadow:0 8px 28px rgba(0,0,0,.38)}
+body{background:var(--bg)!important;color:var(--text)!important}
+body[data-theme="midnight"]{--bg:#030812;--panel:#071426;--text:#e6f2ff;--muted:#829bb8;--line:#1765b5;--primary:#168cff;--primary2:#55c8ff;--green:#35d6a0;--amber:#ffd166;--red:#ff536b;--outline2:#36a9ff;--soft:#0b2038}
+body[data-theme="cyber"]{--bg:#05070d;--panel:#0b101b;--text:#e8eefb;--muted:#8795ad;--line:#ff334f;--primary:#ff334f;--primary2:#268bff;--green:#31d6a0;--amber:#ffc14d;--red:#ff4058;--outline2:#247dff;--soft:#111a2b}
+body[data-theme="purple"]{--bg:#090713;--panel:#120d22;--text:#f1eaff;--muted:#a69abf;--line:#7448b8;--primary:#b45cff;--primary2:#42d9ff;--green:#46e6b0;--amber:#ffc36b;--red:#ff5c8a;--outline2:#42d9ff;--soft:#211436}
+body[data-theme="matrix"]{--bg:#030a07;--panel:#07150f;--text:#e1ffed;--muted:#83a995;--line:#16834f;--primary:#20df78;--primary2:#8bffbf;--green:#20df78;--amber:#d9ed59;--red:#ff5268;--outline2:#8bffbf;--soft:#0d2418}
+body[data-theme="ice"]{--bg:#06101a;--panel:#0b1b2a;--text:#e8f7ff;--muted:#91afc4;--line:#258fc4;--primary:#26b9ff;--primary2:#8cecff;--green:#4be0bd;--amber:#ffd27a;--red:#ff667b;--outline2:#8cecff;--soft:#10283a}
+body[data-theme="amber"]{--bg:#100b05;--panel:#1b1208;--text:#fff3df;--muted:#b9a17d;--line:#a96a16;--primary:#ffad32;--primary2:#ffe08a;--green:#80d69a;--amber:#ffad32;--red:#ff665e;--outline2:#ffe08a;--soft:#2b1d0c}
+body[data-theme="crimson"]{--bg:#100509;--panel:#1c0a12;--text:#ffeaf0;--muted:#bd91a0;--line:#b51f45;--primary:#ff315f;--primary2:#ff8ca8;--green:#56d6a0;--amber:#ffc36d;--red:#ff315f;--outline2:#ff8ca8;--soft:#30101d}
+body[data-theme="synthwave"]{--bg:#090516;--panel:#150b28;--text:#f8eaff;--muted:#ad96c9;--line:#8b3cff;--primary:#ff4fc8;--primary2:#35d9ff;--green:#54edc1;--amber:#ffd166;--red:#ff5c78;--outline2:#35d9ff;--soft:#24103d}
+.sidebar{background:#03050a!important;border-right:1px solid var(--line)}
+.topbar{background:var(--panel)!important;border-bottom:1px solid var(--outline2)}
+.stat,.task,.progress-wrap,.day,.modal{background:var(--panel)!important;border-color:var(--line)!important;color:var(--text)}
+.task{border-left:2px solid var(--outline2)}
+.stat{border-top:2px solid var(--primary)}
+.btn-primary{background:var(--primary)!important;box-shadow:0 0 16px color-mix(in srgb,var(--primary) 32%,transparent)}
+.btn-light,.close{background:var(--soft)!important;color:var(--text)!important;border:1px solid var(--line)}
+.search input,.select,.field input,.field select,.field textarea{background:var(--soft)!important;color:var(--text)!important;border-color:var(--outline2)!important}
+.tab.active{background:var(--soft)!important;color:var(--primary)!important;outline:1px solid var(--primary)}
+.pill{background:var(--soft);color:var(--muted)}
+.empty{background:var(--panel);border-color:var(--outline2)}
+.progress{background:var(--soft)}
+.progress>div{background:linear-gradient(90deg,var(--primary),var(--primary2))}
+.day.today{border-color:var(--primary);box-shadow:inset 0 0 0 1px var(--primary)}
+.day-task{background:var(--soft);color:var(--primary2)}
+.avatar{background:var(--soft);color:var(--primary);border:1px solid var(--outline2)}
+.theme-select{max-width:200px;font-size:12px}
+.field label,.task-title,.stat strong,.progress-head,.crumb{color:var(--text)}
+
+</style>
+</head>
+<body data-theme="midnight">
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="brand-mark">✦</div> TaskFlow <span style="color:#9bffef;font-size:11px;margin-left:2px">XP</span></div>
+  <div><div class="nav-label">Workspace</div><nav class="nav">
+    <button class="active" data-view="all"><span>▦</span> Overview <span class="count" id="navAll">0</span></button>
+    <button data-view="today"><span>☀</span> Today</button>
+    <button data-view="upcoming"><span>◷</span> Upcoming</button>
+    <button data-view="calendar"><span>▦</span> Calendar</button>
+    <button data-view="completed"><span>✓</span> Completed</button>
+  </nav></div>
+  <div><div class="nav-label">Filters</div><nav class="nav">
+    <button data-priority="high"><span>🔴</span> High priority</button>
+    <button data-priority="medium"><span>🟠</span> Medium priority</button>
+    <button data-priority="low"><span>🟢</span> Low priority</button>
+  </nav></div>
+  <div class="player-card"><div class="player-kicker">✦ PLAYER PROFILE</div><div class="player-row"><div class="player-avatar">Y</div><div><b>Solo Player</b><small id="playerLevel">LEVEL 1 · ROOKIE</small></div></div><div class="xp-line"><span>EXPERIENCE</span><b id="xpValue">0 / 100 XP</b></div><div class="xp-track"><i id="xpBar"></i></div><div class="xp-foot">Complete quests to earn XP</div></div>
+  <div class="side-bottom">OFFLINE MODE · LOCAL SAVE<br>One player. Your daily quests.</div>
+</aside>
+<main class="main">
+<header class="topbar"><div class="crumb">Workspace <span class="muted">/</span> <b id="crumb">Overview</b></div><div class="top-actions">
+<select class="select theme-select" id="themeSelect" aria-label="Choose theme" title="Change theme">
+<option value="midnight">🔵 Midnight Black / Blue</option>
+<option value="cyber">🔴🔵 Cyber Red / Blue</option>
+<option value="purple">🟣 Neon Purple</option>
+<option value="matrix">🟢 Matrix Green</option>
+<option value="ice">🧊 Arctic Ice</option>
+<option value="amber">🟠 Gold Amber</option>
+<option value="crimson">🔻 Crimson</option>
+<option value="synthwave">🌌 Synthwave</option>
+</select>
+<span class="muted" id="todayLabel"></span><div class="avatar">Y</div></div></header>
+<div class="content">
+  <div class="page-head"><div><div class="eyebrow">✦ YOUR PERSONAL QUEST HUB</div><h1 id="heading">Ready for today’s quests? 🎮</h1><p class="sub" id="subheading">Small wins earn XP. Keep your momentum going.</p></div><button class="btn btn-primary" id="addBtn">＋ Add task</button></div>
+  <section class="stats">
+    <div class="stat"><div class="stat-top">Total quests <span class="stat-icon">⚔</span></div><strong id="totalStat">0</strong><small>All your tasks</small></div>
+    <div class="stat"><div class="stat-top">Quests cleared <span class="stat-icon">🏆</span></div><strong id="doneStat">0</strong><small>Successfully finished</small></div>
+    <div class="stat"><div class="stat-top">In progress <span class="stat-icon">⚡</span></div><strong id="progressStat">0</strong><small>Work in motion</small></div>
+    <div class="stat"><div class="stat-top">Overdue quests <span class="stat-icon">☠</span></div><strong id="lateStat">0</strong><small>Needs your attention</small></div>
+  </section>
+  <div class="toolbar" id="taskToolbar"><div class="tabs"><button class="tab active" data-status="all">All tasks</button><button class="tab" data-status="pending">Pending</button><button class="tab" data-status="progress">In progress</button><button class="tab" data-status="completed">Completed</button></div><div class="tools"><div class="search"><span>⌕</span><input id="search" placeholder="Search tasks..."></div><select class="select" id="sort"><option value="date">Sort: Due date</option><option value="created">Sort: Recently added</option><option value="priority">Sort: Priority</option><option value="title">Sort: Task name</option></select></div></div>
+  <div id="taskArea"></div>
+  <div class="progress-wrap"><div class="progress-head"><span>🏆 Task completion</span><span id="progressText" class="muted">0% completed</span></div><div class="progress"><div id="progressBar" style="width:0%"></div></div></div>
+</div>
+</main></div>
+<div class="modal-backdrop" id="modalBackdrop"><div class="modal">
+  <div class="modal-head"><h2 id="modalTitle">Create a task</h2><button class="close" id="closeModal">✕</button></div>
+  <form id="taskForm">
+    <input type="hidden" id="taskId">
+    <div class="field"><label for="title">Task name *</label><input id="title" required maxlength="100" placeholder="e.g. Finish weekly report"></div>
+    <div class="field"><label for="description">Description</label><textarea id="description" maxlength="600" placeholder="Add notes or details..."></textarea></div>
+    <div class="form-grid">
+      <div class="field"><label for="dueDate">Due date</label><input type="date" id="dueDate"></div>
+      <div class="field"><label for="priority">Priority</label><select id="priority"><option value="medium">Medium</option><option value="high">High</option><option value="low">Low</option></select></div>
+      <div class="field"><label for="status">Status</label><select id="status"><option value="pending">Pending</option><option value="progress">In progress</option><option value="completed">Completed</option></select></div>
+      <div class="field"><label for="category">Category</label><input id="category" maxlength="30" placeholder="e.g. Work, Personal"></div>
+    </div>
+    <div class="modal-foot"><button type="button" class="btn btn-light" id="cancelBtn">Cancel</button><button class="btn btn-primary" type="submit">Save task</button></div>
+  </form>
+</div></div>
+<div class="toast" id="toast"></div>
+<script>
+const KEY='taskflow_personal_tasks_v1';
+let tasks=JSON.parse(localStorage.getItem(KEY)||'[]');
+let view='all', statusFilter='all', priorityFilter='', editing=null, calendarMonth=new Date();
+const $=id=>document.getElementById(id);
+const today=new Date(); today.setHours(0,0,0,0);
+const dateISO=d=>{const x=new Date(d);return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`};
+const parseDate=s=>{if(!s)return null;const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
+const fmt=s=>{const d=parseDate(s);return d?d.toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'}):'No due date'};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const save=()=>localStorage.setItem(KEY,JSON.stringify(tasks));
+function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2200)}
+function isLate(t){return t.due&&t.status!=='completed'&&parseDate(t.due)<today}
+function stats(){
+ const done=tasks.filter(t=>t.status==='completed').length, prog=tasks.filter(t=>t.status==='progress').length, late=tasks.filter(isLate).length;
+ $('totalStat').textContent=tasks.length;$('doneStat').textContent=done;$('progressStat').textContent=prog;$('lateStat').textContent=late;$('navAll').textContent=tasks.length;
+ const pct=tasks.length?Math.round(done/tasks.length*100):0;$('progressText').textContent=pct+'% completed';$('progressBar').style.width=pct+'%'; const xp=done*25, level=Math.floor(xp/100)+1, within=xp%100; $('xpValue').textContent=within+' / 100 XP'; $('xpBar').style.width=within+'%'; $('playerLevel').textContent='LEVEL '+level+' · '+(level>=10?'LEGEND':level>=5?'VETERAN':level>=3?'RANGER':'ROOKIE');
+}
+function setView(v){view=v;priorityFilter='';statusFilter=v==='completed'?'completed':'all';document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===v));document.querySelectorAll('[data-priority]').forEach(b=>b.classList.remove('active'));$('crumb').textContent=({all:'Overview',today:'Today',upcoming:'Upcoming',calendar:'Calendar',completed:'Completed'})[v];$('heading').textContent=({all:'Good day 👋',today:'Today’s tasks',upcoming:'Coming up',calendar:'Your calendar',completed:'Completed tasks'})[v];$('subheading').textContent=({all:'Here’s what’s happening with your tasks.',today:'Focus on what needs to get done today.',upcoming:'Plan ahead and stay one step ahead.',calendar:'See your tasks across the month.',completed:'A record of everything you have finished.'})[v];$('taskToolbar').style.display=v==='calendar'?'none':'flex';render()}
+function filtered(){
+ let a=[...tasks], q=$('search').value.toLowerCase();
+ if(view==='today')a=a.filter(t=>t.due===dateISO(today)&&t.status!=='completed');
+ if(view==='upcoming')a=a.filter(t=>t.due&&parseDate(t.due)>today&&t.status!=='completed');
+ if(view==='completed')a=a.filter(t=>t.status==='completed');
+ if(priorityFilter)a=a.filter(t=>t.priority===priorityFilter);
+ if(statusFilter!=='all')a=a.filter(t=>t.status===statusFilter);
+ if(q)a=a.filter(t=>(t.title+' '+t.description+' '+t.category).toLowerCase().includes(q));
+ const sort=$('sort').value;
+ a.sort((x,y)=>sort==='created'?y.created-x.created:sort==='priority'?({high:0,medium:1,low:2}[x.priority]-({high:0,medium:1,low:2}[y.priority])):sort==='title'?x.title.localeCompare(y.title):(x.due||'9999').localeCompare(y.due||'9999'));
+ return a;
+}
+function render(){
+ stats();
+ if(view==='calendar'){renderCalendar();return}
+ const a=filtered();
+ if(!a.length){$('taskArea').innerHTML=`<div class="empty"><div class="emoji">📝</div><h3>No tasks found</h3><div>${$('search').value?'Try another search.':'Add a task to get your day organized.'}</div><br><button class="btn btn-primary" onclick="openModal()">＋ Create your first task</button></div>`;return}
+ $('taskArea').innerHTML='<div class="task-list">'+a.map(t=>`<article class="task ${t.status==='completed'?'completed':''}"><button class="check ${t.status==='completed'?'done':''}" onclick="toggleTask('${t.id}')" aria-label="Complete task">${t.status==='completed'?'✓':''}</button><div><div class="task-title">${esc(t.title)}</div>${t.description?`<div class="task-desc">${esc(t.description)}</div>`:''}<div class="meta"><span class="pill p-${t.priority}">${t.priority.toUpperCase()}</span><span class="pill">${t.status==='progress'?'IN PROGRESS':t.status.toUpperCase()}</span>${t.category?`<span class="pill">${esc(t.category)}</span>`:''}<span class="due ${isLate(t)?'late':''}">${t.due?(isLate(t)?'Overdue · ':'Due · ')+fmt(t.due):'No due date'}</span></div></div><div class="task-actions"><button class="icon-btn" title="Edit" onclick="editTask('${t.id}')">✎</button><button class="icon-btn" title="Delete" onclick="deleteTask('${t.id}')">⌫</button></div></article>`).join('')+'</div>';
+}
+function openModal(task=null){editing=task?.id||null;$('modalTitle').textContent=task?'Edit task':'Create a task';$('taskId').value=task?.id||'';$('title').value=task?.title||'';$('description').value=task?.description||'';$('dueDate').value=task?.due||'';$('priority').value=task?.priority||'medium';$('status').value=task?.status||'pending';$('category').value=task?.category||'';$('modalBackdrop').classList.add('show');setTimeout(()=>$('title').focus(),50)}
+function closeModal(){$('modalBackdrop').classList.remove('show');$('taskForm').reset();editing=null}
+function editTask(id){const t=tasks.find(x=>x.id===id);if(t)openModal(t)}
+function toggleTask(id){const t=tasks.find(x=>x.id===id);if(!t)return;t.status=t.status==='completed'?'pending':'completed';save();render();toast(t.status==='completed'?'Task completed!':'Task reopened')}
+function deleteTask(id){const t=tasks.find(x=>x.id===id);if(!t)return;if(confirm(`Delete "${t.title}"?`)){tasks=tasks.filter(x=>x.id!==id);save();render();toast('Task deleted')}}
+function renderCalendar(){
+ const y=calendarMonth.getFullYear(),m=calendarMonth.getMonth(),first=new Date(y,m,1),start=new Date(y,m,1-first.getDay()),days=[];
+ for(let i=0;i<42;i++){let d=new Date(start);d.setDate(start.getDate()+i);days.push(d)}
+ $('taskArea').innerHTML=`<div class="calendar-head"><button class="btn btn-light" onclick="changeMonth(-1)">← Previous</button><b>${calendarMonth.toLocaleDateString(undefined,{month:'long',year:'numeric'})}</b><button class="btn btn-light" onclick="changeMonth(1)">Next →</button></div><div class="calendar-grid">${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(x=>`<div class="muted" style="text-align:center;font-weight:700;padding:6px">${x}</div>`).join('')}${days.map(d=>{const iso=dateISO(d),list=tasks.filter(t=>t.due===iso);return `<div class="day ${iso===dateISO(today)?'today':''}" style="${d.getMonth()!==m?'opacity:.42':''}"><span class="num">${d.getDate()}</span>${list.slice(0,3).map(t=>`<span class="day-task" title="${esc(t.title)}">${esc(t.title)}</span>`).join('')}${list.length>3?`<span class="muted">+${list.length-3} more</span>`:''}</div>`}).join('')}</div>`;
+}
+function changeMonth(n){calendarMonth.setMonth(calendarMonth.getMonth()+n);renderCalendar()}
+$('taskForm').addEventListener('submit',e=>{e.preventDefault();const title=$('title').value.trim();if(!title)return;const data={title,description:$('description').value.trim(),due:$('dueDate').value,priority:$('priority').value,status:$('status').value,category:$('category').value.trim()};if(editing){Object.assign(tasks.find(t=>t.id===editing),data);toast('Task updated')}else{tasks.unshift({...data,id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),created:Date.now()});toast('Task created')}save();closeModal();render()});
+$('addBtn').onclick=()=>openModal();$('closeModal').onclick=closeModal;$('cancelBtn').onclick=closeModal;$('modalBackdrop').addEventListener('click',e=>{if(e.target===$('modalBackdrop'))closeModal()});
+document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>setView(b.dataset.view));
+document.querySelectorAll('[data-status]').forEach(b=>b.onclick=()=>{statusFilter=b.dataset.status;document.querySelectorAll('[data-status]').forEach(x=>x.classList.toggle('active',x===b));render()});
+document.querySelectorAll('[data-priority]').forEach(b=>b.onclick=()=>{priorityFilter=priorityFilter===b.dataset.priority?'':b.dataset.priority;document.querySelectorAll('[data-priority]').forEach(x=>x.classList.toggle('active',x===b&&!!priorityFilter));render()});
+$('search').addEventListener('input',render);$('sort').addEventListener('change',render);
+$('todayLabel').textContent=today.toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short'});
+const validThemes=['midnight','cyber','purple','matrix','ice','amber','crimson','synthwave'];
+const storedTheme=localStorage.getItem('taskflow_theme');
+const savedTheme=validThemes.includes(storedTheme)?storedTheme:'midnight';
+document.body.setAttribute('data-theme',savedTheme);
+$('themeSelect').value=savedTheme;
+$('themeSelect').addEventListener('change',e=>{
+  const chosen=validThemes.includes(e.target.value)?e.target.value:'midnight';
+  document.body.setAttribute('data-theme',chosen);
+  localStorage.setItem('taskflow_theme',chosen);
+  toast('Theme changed to '+e.target.options[e.target.selectedIndex].text);
+});
+setView('all');
+</script>
+</body></html>
